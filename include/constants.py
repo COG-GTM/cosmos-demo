@@ -4,6 +4,7 @@ from pathlib import Path
 from cosmos import ExecutionConfig
 
 jaffle_shop_path = Path("/usr/local/airflow/dbt/jaffle_shop")
+saas_metrics_path = Path("/usr/local/airflow/dbt/saas_metrics")
 dbt_executable = Path("/usr/local/airflow/dbt_venv/bin/dbt")
 
 venv_execution_config = ExecutionConfig(

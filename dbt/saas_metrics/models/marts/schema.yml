@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: monthly_recurring_revenue
+    description: >
+      Monthly SaaS revenue metrics broken down by movement type
+      (new business, expansion, contraction, churn) with running MRR totals.
+    columns:
+      - name: month_start
+        description: First day of the month
+        tests:
+          - unique
+          - not_null
+      - name: ending_mrr
+        description: Total MRR at end of the month
+        tests:
+          - not_null
+
+  - name: customer_segments
+    description: >
+      Customer segmentation combining subscription data, plan tier,
+      company size, and lifecycle stage for targeted analytics.
+    columns:
+      - name: customer_id
+        description: Unique customer identifier
+        tests:
+          - unique
+          - not_null
+
+  - name: churn_analysis
+    description: >
+      Cohort-based churn and retention analysis by signup month
+      and plan tier, showing churn rates over time.
+    columns:
+      - name: cohort_churn_rate_pct
+        description: Percentage of cohort that has churned
+        tests:
+          - not_null
+      - name: cohort_retention_rate_pct
+        description: Percentage of cohort still active
+        tests:
+          - not_null
+
+  - name: subscription_health_dashboard
+    description: >
+      Executive-level SaaS health scorecard combining MRR trends,
+      customer counts, ARPU, churn rates, and tier distribution
+      into a single row for the latest reporting period.
+    columns:
+      - name: reporting_month
+        description: The month this dashboard reflects
+        tests:
+          - not_null
+      - name: ending_mrr
+        description: Current monthly recurring revenue
+        tests:
+          - not_null
+      - name: arr
+        description: Annualized recurring revenue (MRR x 12)
+        tests:
+          - not_null
