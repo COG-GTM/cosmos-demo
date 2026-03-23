@@ -12,3 +12,12 @@ airflow_db = ProfileConfig(
         profile_args={"schema": "dbt"},
     ),
 )
+
+saas_metrics_db = ProfileConfig(
+    profile_name="airflow_db",
+    target_name="dev",
+    profile_mapping=PostgresUserPasswordProfileMapping(
+        conn_id="airflow_metadata_db",
+        profile_args={"schema": "saas_metrics"},
+    ),
+)

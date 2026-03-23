@@ -18,7 +18,7 @@ from airflow.operators.empty import EmptyOperator
 
 from cosmos import DbtTaskGroup, ProjectConfig
 
-from include.profiles import airflow_db
+from include.profiles import saas_metrics_db
 from include.constants import saas_metrics_path, venv_execution_config
 
 
@@ -41,7 +41,7 @@ def saas_metrics_pipeline() -> None:
     saas_metrics = DbtTaskGroup(
         group_id="saas_metrics_dbt",
         project_config=ProjectConfig(saas_metrics_path),
-        profile_config=airflow_db,
+        profile_config=saas_metrics_db,
         execution_config=venv_execution_config,
     )
 

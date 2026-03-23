@@ -12,12 +12,6 @@ plans as (
 
 ),
 
-events as (
-
-    select * from {{ ref('stg_subscription_events') }}
-
-),
-
 monthly_cohorts as (
 
     select
@@ -31,36 +25,6 @@ monthly_cohorts as (
     inner join plans p on s.plan_id = p.plan_id
 
     group by 1, 2
-
-),
-
-monthly_churn_events as (
-
-    select
-        date_trunc('month', event_date)::date as churn_month,
-        count(*) as churn_events,
-        sum(abs(mrr_change)) as churned_mrr
-
-    from events
-    where event_type = 'churn'
-
-    group by 1
-
-),
-
-active_at_month_start as (
-
-    select
-        date_trunc('month', e.event_date)::date as month_start,
-        count(distinct case
-            when e.event_type = 'new_business' and e.event_date < date_trunc('month', e.event_date)::date + interval '1 month'
-            then e.customer_id
-        end) as active_start_count
-
-    from events e
-    where e.event_type in ('new_business')
-
-    group by 1
 
 ),
 
