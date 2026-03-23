@@ -62,6 +62,7 @@ final as (
         expansion_mrr,
         contraction_mrr,
         churned_mrr,
+        reactivation_mrr,
         new_business_mrr + expansion_mrr + contraction_mrr + churned_mrr + reactivation_mrr as net_new_mrr,
         sum(new_business_mrr + expansion_mrr + contraction_mrr + churned_mrr + reactivation_mrr)
             over (order by month_start rows between unbounded preceding and current row) as ending_mrr,
