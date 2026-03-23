@@ -79,6 +79,7 @@ final as (
         lm.expansion_mrr,
         lm.contraction_mrr,
         lm.churned_mrr,
+        lm.reactivation_mrr,
         om.total_active_customers,
         om.total_churned_customers,
         om.total_customers,

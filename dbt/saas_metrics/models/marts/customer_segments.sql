@@ -18,12 +18,29 @@ plans as (
 
 ),
 
+events as (
+
+    select * from {{ ref('stg_subscription_events') }}
+
+),
+
+latest_plan_change as (
+
+    select distinct on (subscription_id)
+        subscription_id,
+        new_plan_id as current_plan_id
+    from events
+    where new_plan_id is not null
+    order by subscription_id, event_date desc
+
+),
+
 current_subscriptions as (
 
     select
         s.customer_id,
         s.subscription_id,
-        s.plan_id,
+        coalesce(lp.current_plan_id, s.plan_id) as plan_id,
         s.started_at,
         s.status,
         s.billing_interval,
@@ -33,7 +50,8 @@ current_subscriptions as (
         p.effective_monthly_price
 
     from subscriptions s
-    inner join plans p on s.plan_id = p.plan_id
+    left join latest_plan_change lp on s.subscription_id = lp.subscription_id
+    inner join plans p on coalesce(lp.current_plan_id, s.plan_id) = p.plan_id
 
 ),
 
