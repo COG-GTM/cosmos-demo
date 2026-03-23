@@ -32,3 +32,4 @@ subscription_id,customer_id,plan_id,start_date,end_date,status,billing_interval
 31,9,2,2023-09-10,,active,monthly
 32,6,3,2024-03-15,,active,monthly
 33,11,3,2024-01-20,,active,monthly
+34,19,2,2024-02-28,,active,monthly

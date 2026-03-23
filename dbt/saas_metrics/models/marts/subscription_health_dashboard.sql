@@ -37,7 +37,7 @@ active_customers_per_month as (
     from months m
     join subscriptions s
         on s.start_date <= (m.report_month + interval '1 month' - interval '1 day')::date
-        and (s.end_date is null or s.end_date >= m.report_month)
+        and (s.end_date is null or s.end_date >= (m.report_month + interval '1 month' - interval '1 day')::date)
     group by 1
 
 ),
