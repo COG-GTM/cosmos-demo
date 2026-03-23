@@ -47,6 +47,15 @@ latest_events as (
 
 ),
 
+reactivated_customers as (
+
+    select distinct s.customer_id
+    from events e
+    join subscriptions s on e.subscription_id = s.subscription_id
+    where e.event_type = 'reactivation'
+
+),
+
 final as (
 
     select
@@ -61,13 +70,14 @@ final as (
         ls.billing_interval,
         case
             when ls.status = 'churned' then 'churned'
-            when le.event_type = 'reactivation' then 'reactivated'
+            when rc.customer_id is not null then 'reactivated'
             when ls.status = 'active' and ls.start_date >= current_date - interval '90 days' then 'new'
             when ls.status = 'active' then 'active'
             when ls.status in ('upgraded', 'downgraded') then 'active'
             else 'at_risk'
         end as lifecycle_stage,
         case
+            when ls.status = 'churned' or ls.subscription_id is null then 0
             when ls.billing_interval = 'annual' then p.annual_price / 12.0
             else p.monthly_price
         end as current_mrr
@@ -75,6 +85,7 @@ final as (
     left join latest_subscriptions ls on c.customer_id = ls.customer_id and ls.rn = 1
     left join plans p on ls.plan_id = p.plan_id
     left join latest_events le on ls.subscription_id = le.subscription_id and le.rn = 1
+    left join reactivated_customers rc on c.customer_id = rc.customer_id
 
 )
 
