@@ -1,0 +1,9 @@
+plan_id,plan_name,monthly_price_cents,annual_price_cents,tier,max_seats,is_active
+1,Free,0,0,free,1,true
+2,Starter Monthly,2900,0,starter,5,true
+3,Starter Annual,0,29900,starter,5,true
+4,Pro Monthly,7900,0,pro,20,true
+5,Pro Annual,0,79900,pro,20,true
+6,Enterprise Monthly,19900,0,enterprise,999,true
+7,Enterprise Annual,0,199900,enterprise,999,true
+8,Legacy Basic,1500,0,starter,3,false

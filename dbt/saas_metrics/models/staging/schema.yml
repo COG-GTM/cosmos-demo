@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: stg_plans
+    description: Cleaned SaaS plan definitions with computed effective monthly price
+    columns:
+      - name: plan_id
+        tests:
+          - unique
+          - not_null
+      - name: tier
+        tests:
+          - accepted_values:
+              values: ['free', 'starter', 'pro', 'enterprise']
+
+  - name: stg_customers
+    description: Cleaned SaaS customer records
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_subscriptions
+    description: Cleaned subscription records with computed duration
+    columns:
+      - name: subscription_id
+        tests:
+          - unique
+          - not_null
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['active', 'churned', 'paused']
+      - name: billing_interval
+        tests:
+          - accepted_values:
+              values: ['monthly', 'annual']
+
+  - name: stg_subscription_events
+    description: Cleaned subscription lifecycle events
+    columns:
+      - name: event_id
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        tests:
+          - accepted_values:
+              values: ['new_business', 'upgrade', 'downgrade', 'churn', 'reactivation']

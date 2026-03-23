@@ -1,0 +1,31 @@
+customer_id,company_name,industry,company_size,signup_date,country
+1,Acme Corp,technology,50,2023-01-15,US
+2,Globex Inc,finance,200,2023-01-22,US
+3,Initech,technology,30,2023-02-01,CA
+4,Umbrella Ltd,healthcare,500,2023-02-10,UK
+5,Stark Industries,manufacturing,1000,2023-02-14,US
+6,Wayne Enterprises,finance,800,2023-03-01,US
+7,Wonka Industries,retail,150,2023-03-05,US
+8,Cyberdyne Systems,technology,75,2023-03-12,US
+9,Soylent Corp,food_bev,300,2023-03-20,CA
+10,Tyrell Corp,technology,250,2023-04-01,UK
+11,Massive Dynamic,technology,400,2023-04-10,US
+12,Hooli,technology,600,2023-04-15,US
+13,Pied Piper,technology,10,2023-04-22,US
+14,Dunder Mifflin,retail,100,2023-05-01,US
+15,Sterling Cooper,marketing,80,2023-05-10,US
+16,Prestige Worldwide,entertainment,25,2023-05-15,US
+17,Bluth Company,real_estate,40,2023-05-20,US
+18,Vandelay Industries,manufacturing,60,2023-06-01,US
+19,Kramerica,consulting,5,2023-06-10,US
+20,Planet Express,logistics,35,2023-06-15,US
+21,Buy N Large,retail,2000,2023-06-20,US
+22,InGen,biotechnology,350,2023-07-01,US
+23,Oscorp,biotechnology,450,2023-07-10,US
+24,LexCorp,technology,900,2023-07-15,US
+25,Daily Planet,media,120,2023-07-20,US
+26,Weyland Corp,technology,1500,2023-08-01,UK
+27,Spacely Sprockets,manufacturing,200,2023-08-10,US
+28,Cogswell Cogs,manufacturing,180,2023-08-15,US
+29,Momcorp,conglomerate,5000,2023-08-20,US
+30,Central Perk,food_bev,15,2023-09-01,US
