@@ -70,8 +70,8 @@ models:
     columns:
       - name: report_month
         description: The calendar month for the report
-      - name: total_active_subscriptions
-        description: Count of active subscriptions at month end
+      - name: total_active_customers
+        description: Count of active customers at month end
       - name: total_mrr
         description: Total monthly recurring revenue
       - name: new_customers_count
@@ -79,10 +79,10 @@ models:
       - name: churned_customers_count
         description: Number of customers who churned in the month
       - name: gross_churn_rate
-        description: Churned customers divided by total active subscriptions
+        description: Churned customers divided by total active customers
       - name: net_revenue_retention_rate
         description: Current MRR divided by prior month MRR
       - name: average_revenue_per_customer
-        description: Total MRR divided by active subscriptions
+        description: Total MRR divided by active customers
       - name: top_plan_by_subscribers
         description: Plan with the most active subscribers in the month

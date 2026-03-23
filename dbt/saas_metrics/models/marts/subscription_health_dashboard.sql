@@ -29,11 +29,11 @@ months as (
 
 ),
 
-active_subs_per_month as (
+active_customers_per_month as (
 
     select
         m.report_month,
-        count(distinct s.subscription_id) as total_active_subscriptions
+        count(distinct s.customer_id) as total_active_customers
     from months m
     join subscriptions s
         on s.start_date <= (m.report_month + interval '1 month' - interval '1 day')::date
@@ -103,13 +103,13 @@ final as (
 
     select
         m.report_month,
-        coalesce(a.total_active_subscriptions, 0) as total_active_subscriptions,
+        coalesce(a.total_active_customers, 0) as total_active_customers,
         coalesce(cm.total_mrr, 0) as total_mrr,
         coalesce(nc.new_customers_count, 0) as new_customers_count,
         coalesce(ch.churned_customers_count, 0) as churned_customers_count,
         case
-            when coalesce(a.total_active_subscriptions, 0) > 0
-            then round(coalesce(ch.churned_customers_count, 0)::numeric / a.total_active_subscriptions, 4)
+            when coalesce(a.total_active_customers, 0) > 0
+            then round(coalesce(ch.churned_customers_count, 0)::numeric / a.total_active_customers, 4)
             else 0
         end as gross_churn_rate,
         case
@@ -122,13 +122,13 @@ final as (
             else null
         end as net_revenue_retention_rate,
         case
-            when coalesce(a.total_active_subscriptions, 0) > 0
-            then round(coalesce(cm.total_mrr, 0)::numeric / a.total_active_subscriptions, 2)
+            when coalesce(a.total_active_customers, 0) > 0
+            then round(coalesce(cm.total_mrr, 0)::numeric / a.total_active_customers, 2)
             else 0
         end as average_revenue_per_customer,
         tp.top_plan_by_subscribers
     from months m
-    left join active_subs_per_month a on m.report_month = a.report_month
+    left join active_customers_per_month a on m.report_month = a.report_month
     left join cumulative_mrr cm on m.report_month = cm.report_month
     left join new_customers_per_month nc on m.report_month = nc.report_month
     left join churned_per_month ch on m.report_month = ch.report_month
