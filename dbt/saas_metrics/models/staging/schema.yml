@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  - name: stg_plans
+    description: Cleaned and typed SaaS pricing plans
+    columns:
+      - name: plan_id
+        description: Unique identifier for a pricing plan
+        tests:
+          - unique
+          - not_null
+      - name: plan_name
+        description: Display name of the plan
+      - name: tier
+        description: Plan tier classification
+        tests:
+          - accepted_values:
+              values: ['free', 'starter', 'professional', 'enterprise']
+      - name: monthly_price
+        description: Monthly price in USD
+      - name: annual_price
+        description: Annual price in USD
+
+  - name: stg_customers
+    description: Cleaned and typed customer accounts
+    columns:
+      - name: customer_id
+        description: Unique identifier for a customer
+        tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: Name of the customer company
+      - name: company_size
+        description: Size classification of the company
+        tests:
+          - accepted_values:
+              values: ['small', 'medium', 'large', 'enterprise']
+      - name: industry
+        description: Industry vertical of the customer
+      - name: signup_date
+        description: Date the customer first signed up
+
+  - name: stg_subscriptions
+    description: Cleaned and typed subscription records
+    columns:
+      - name: subscription_id
+        description: Unique identifier for a subscription
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: Foreign key to stg_customers
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: plan_id
+        description: Foreign key to stg_plans
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_plans')
+              field: plan_id
+      - name: start_date
+        description: Subscription start date
+      - name: end_date
+        description: Subscription end date (null if active)
+      - name: status
+        description: Current subscription status
+        tests:
+          - accepted_values:
+              values: ['active', 'churned', 'upgraded', 'downgraded']
+      - name: billing_interval
+        description: Billing frequency
+        tests:
+          - accepted_values:
+              values: ['monthly', 'annual']
+
+  - name: stg_subscription_events
+    description: Cleaned and typed subscription lifecycle events
+    columns:
+      - name: event_id
+        description: Unique identifier for a subscription event
+        tests:
+          - unique
+          - not_null
+      - name: subscription_id
+        description: Foreign key to stg_subscriptions
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_subscriptions')
+              field: subscription_id
+      - name: event_type
+        description: Type of subscription event
+        tests:
+          - accepted_values:
+              values: ['new', 'upgrade', 'downgrade', 'churn', 'reactivation']
+      - name: event_date
+        description: Date the event occurred
+      - name: old_plan_id
+        description: Plan before the event (null for new subscriptions)
+      - name: new_plan_id
+        description: Plan after the event (null for churn events)
+      - name: mrr_change
+        description: Change in monthly recurring revenue from this event

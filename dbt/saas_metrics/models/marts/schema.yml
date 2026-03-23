@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: monthly_recurring_revenue
+    description: Monthly MRR breakdown by component type with running totals
+    columns:
+      - name: revenue_month
+        description: The calendar month for MRR aggregation
+      - name: new_mrr
+        description: MRR from new subscriptions in this month
+      - name: expansion_mrr
+        description: MRR gained from plan upgrades
+      - name: contraction_mrr
+        description: MRR lost from plan downgrades (negative value)
+      - name: churned_mrr
+        description: MRR lost from churned subscriptions (negative value)
+      - name: reactivation_mrr
+        description: MRR regained from reactivated subscriptions
+      - name: net_new_mrr
+        description: Sum of all MRR components for the month
+      - name: total_mrr
+        description: Cumulative running total of MRR
+
+  - name: customer_segments
+    description: Customer segmentation by plan tier, company size, and lifecycle stage
+    columns:
+      - name: customer_id
+        description: Unique identifier for the customer
+      - name: company_name
+        description: Name of the customer company
+      - name: company_size
+        description: Size classification (small, medium, large, enterprise)
+      - name: industry
+        description: Industry vertical of the customer
+      - name: signup_date
+        description: Date the customer first signed up
+      - name: plan_tier
+        description: Current plan tier (free, starter, professional, enterprise)
+      - name: plan_name
+        description: Current plan display name
+      - name: subscription_status
+        description: Status of the latest subscription
+      - name: billing_interval
+        description: Current billing frequency (monthly or annual)
+      - name: lifecycle_stage
+        description: Derived lifecycle stage (new, active, at_risk, churned, reactivated)
+      - name: current_mrr
+        description: Current monthly recurring revenue for this customer
+
+  - name: churn_analysis
+    description: Cohort-based retention and churn analysis by signup month
+    columns:
+      - name: cohort_month
+        description: The signup month defining the cohort
+      - name: activity_month
+        description: The calendar month being measured
+      - name: months_since_signup
+        description: Number of months elapsed since the cohort signup month
+      - name: cohort_size
+        description: Total number of customers in the cohort
+      - name: customers_remaining
+        description: Number of customers still active from the cohort
+      - name: retention_rate
+        description: Fraction of cohort customers still remaining
+      - name: churn_rate
+        description: Fraction of cohort customers who have churned
+
+  - name: subscription_health_dashboard
+    description: Executive monthly scorecard with key SaaS health metrics
+    columns:
+      - name: report_month
+        description: The calendar month for the report
+      - name: total_active_subscriptions
+        description: Count of active subscriptions at month end
+      - name: total_mrr
+        description: Total monthly recurring revenue
+      - name: new_customers_count
+        description: Number of new customer signups in the month
+      - name: churned_customers_count
+        description: Number of customers who churned in the month
+      - name: gross_churn_rate
+        description: Churned customers divided by total active subscriptions
+      - name: net_revenue_retention_rate
+        description: Current MRR divided by prior month MRR
+      - name: average_revenue_per_customer
+        description: Total MRR divided by active subscriptions
+      - name: top_plan_by_subscribers
+        description: Plan with the most active subscribers in the month
