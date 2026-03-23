@@ -1,0 +1,7 @@
+plan_id,plan_name,tier,monthly_price,annual_price
+1,Free,free,0.00,0.00
+2,Starter Basic,starter,29.00,290.00
+3,Starter Plus,starter,49.00,490.00
+4,Professional,professional,99.00,990.00
+5,Enterprise,enterprise,249.00,2490.00
+6,Enterprise Plus,enterprise,499.00,4990.00
