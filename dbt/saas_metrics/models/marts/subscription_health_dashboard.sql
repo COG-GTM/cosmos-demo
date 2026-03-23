@@ -93,7 +93,7 @@ top_plans as (
     from months m
     join subscriptions s
         on s.start_date <= (m.report_month + interval '1 month' - interval '1 day')::date
-        and (s.end_date is null or s.end_date >= m.report_month)
+        and (s.end_date is null or s.end_date >= (m.report_month + interval '1 month' - interval '1 day')::date)
     join plans p on s.plan_id = p.plan_id
     group by 1, 2
 
